@@ -12,21 +12,26 @@ public class UsuariosOnline {
 	
 	public void addUsuarioOnline (Usuario u){
 		
+		boolean modificacion=false;
+		
 		System.out.println("valorando el usuario: " + u.toString());
 		
 		if (usuariosOnline.isEmpty()){
 			
 			usuariosOnline.add(u);
 			u.setOnline(true);
+			modificacion=true;
 			
 		} else if (!estaEnArray(u)){
 
 			usuariosOnline.add(u);
 			u.setOnline(true);
+			modificacion=true;
 			
 		} else if (u.isOnline()==false){
 			
 			usuariosOnline.remove(posicionElementoQuitar(u));
+			modificacion=true;
 			
 		}
 		
@@ -38,6 +43,12 @@ public class UsuariosOnline {
 			
 		}
 		
+		if (modificacion){
+			
+			/*Desarrollar en caso de que haya modificacion, crear método de
+			 * para cargar el combobox*/
+			
+		}
 		
 		
 	}
