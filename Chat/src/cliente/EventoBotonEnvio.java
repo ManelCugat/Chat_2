@@ -1,13 +1,11 @@
 
-package eventos;
+package cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import dominio.Envio;
-import dominio.Mensaje;
+import dominio.PaqueteMensaje;
 import dominio.Usuario;
-import uinterface.UICliente;
 
 public class EventoBotonEnvio implements ActionListener{
 
@@ -31,15 +29,22 @@ public class EventoBotonEnvio implements ActionListener{
 		
 		System.out.println("botón pulsado");
 		
-		Mensaje mensaje = new Mensaje();
+		PaqueteMensaje mensaje = new PaqueteMensaje();
 		
 		mensaje.setMensaje(cliente.getTextoEnvio().getText());
 		mensaje.setUsuario(getUser());
 		mensaje.setIpDestino(cliente.getUsuario().getIp());
-	
-		Envio mensajeEnvio = new Envio();
+		
+		cliente.getCampoChat().append(getUser().getNick_name() +": " +cliente.getTextoEnvio().getText() + "\n");
+		
+		cliente.getTextoEnvio().setText("");
+		
+		
+		EnvioMensajeCliente mensajeEnvio = new EnvioMensajeCliente();
 		
 		mensajeEnvio.mensaje(mensaje);
+		
+
 	
 	}
 

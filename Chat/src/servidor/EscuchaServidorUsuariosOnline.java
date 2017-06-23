@@ -1,11 +1,12 @@
-package dominio;
+package servidor;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import uinterface.UIServidor;
+import dominio.Usuario;
+import dominio.UsuariosOnline;
 
 public class EscuchaServidorUsuariosOnline implements Runnable{
 	
@@ -46,8 +47,7 @@ public class EscuchaServidorUsuariosOnline implements Runnable{
 		
 				try {
 					
-					
-					
+				
 					/*Escucha de los usuarios que se van conectando*/
 					
 					socketUsuariosOnline = socketServidorUsuariosOnline.accept();

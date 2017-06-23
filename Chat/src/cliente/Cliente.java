@@ -1,4 +1,4 @@
-package uinterface;
+package cliente;
 
 public class Cliente {
 
@@ -6,9 +6,10 @@ public class Cliente {
 
 		UICliente cliente=new UICliente();
 		
-		System.out.println(cliente.getUsuario().toString());
-		
-
+		@SuppressWarnings("unused")
+		EscuchaClienteUsuarioOnline escuchaClienteUsuarioOnline = new EscuchaClienteUsuarioOnline(cliente);
+	
+	
 	}
 
 }

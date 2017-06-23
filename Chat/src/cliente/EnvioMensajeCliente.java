@@ -1,24 +1,25 @@
-package dominio;
+package cliente;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
-public class Envio {
+import dominio.PaqueteMensaje;
+import dominio.Usuario;
+
+public class EnvioMensajeCliente {
 	
-	/**
-	 * 
-	 */
 
-	private Mensaje mensaje;
+	private PaqueteMensaje mensaje;
 	private Socket socket;
 	
 	
-	public Envio(){}
+	public EnvioMensajeCliente(){}
 		
 	
-	public void mensaje (Mensaje mensaje)	{
+	public void mensaje (PaqueteMensaje mensaje)	{
 		
 		
 		System.out.println("El mensaje que se envia es: " + mensaje.toString());
@@ -44,16 +45,18 @@ public class Envio {
 	}
 	
 
-	public Mensaje getMensaje() {
+	public PaqueteMensaje getMensaje() {
 		return mensaje;
 	}
 
-	public void setMensaje(Mensaje mensaje) {
+	public void setMensaje(PaqueteMensaje mensaje) {
 		this.mensaje = mensaje;
 	}
 	
 	
-	public void usuarioOnline(Usuario u){
+	//Envio del usuario Online del Cliente al Servidor
+	
+	public void usuarioOnlineClienteServidor(Usuario u){
 		
 	
 		try {
@@ -62,13 +65,13 @@ public class Envio {
 			
 			System.out.println("Se abre socket usuario online");
 			
-			ObjectOutputStream usuarioOnline = new ObjectOutputStream (socket.getOutputStream());
+			ObjectOutputStream usuarioOnlineServidor = new ObjectOutputStream (socket.getOutputStream());
 			
 			System.out.println("Se envia usuario: " + u.toString());
 			
-			usuarioOnline.writeObject(u);
+			usuarioOnlineServidor.writeObject(u);
 			
-			usuarioOnline.close();
+			usuarioOnlineServidor.close();
 			
 			socket.close();
 			
@@ -80,9 +83,12 @@ public class Envio {
 			e1.printStackTrace();
 		}
 		
-		
-		
 	}
+		
+
+		
+
+	
 	
 
 }

@@ -1,10 +1,9 @@
-package dominio;
+package servidor;
 
 import java.io.*;
 import java.net.*;
 
-
-import uinterface.UIServidor;
+import dominio.PaqueteMensaje;
 
 public class EscuchaServidorMensaje implements Runnable{
 	
@@ -12,11 +11,10 @@ public class EscuchaServidorMensaje implements Runnable{
 	private UIServidor servidor;
 	
 	
-	public EscuchaServidorMensaje (){
+	public EscuchaServidorMensaje (UIServidor servidor){
 		
-		servidor = new UIServidor();
 		
-		EscuchaServidorUsuariosOnline servidorOnline = new EscuchaServidorUsuariosOnline (servidor);
+		this.servidor=servidor;
 		
 		Thread t = new Thread (this);
 		
@@ -31,7 +29,7 @@ public class EscuchaServidorMensaje implements Runnable{
 
 			ServerSocket socketServidor = null;
 			Socket socket = null;
-			Mensaje mensaje;
+			PaqueteMensaje mensaje;
 
 
 	
@@ -59,7 +57,7 @@ public class EscuchaServidorMensaje implements Runnable{
 			
 					ObjectInputStream recepcion = new ObjectInputStream(socket.getInputStream());
 			
-					mensaje= (Mensaje) recepcion.readObject();
+					mensaje= (PaqueteMensaje) recepcion.readObject();
 					
 					servidor.getAreaTexto().append(mensaje.toString() + "\n");
 					

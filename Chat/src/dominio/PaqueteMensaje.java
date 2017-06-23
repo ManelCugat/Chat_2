@@ -3,7 +3,7 @@ package dominio;
 import java.io.Serializable;
 import java.net.InetAddress;
 
-public class Mensaje implements Serializable{
+public class PaqueteMensaje implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

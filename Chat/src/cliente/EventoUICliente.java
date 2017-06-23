@@ -1,4 +1,4 @@
-package eventos;
+package cliente;
 
 import java.awt.event.*;
 import java.io.IOException;
@@ -6,10 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import dominio.Envio;
-import dominio.Mensaje;
+import dominio.PaqueteMensaje;
 import dominio.Usuario;
-import uinterface.UICliente;
 
 public class EventoUICliente extends WindowAdapter{
 	
@@ -23,35 +21,18 @@ public class EventoUICliente extends WindowAdapter{
 	}
 	
 	
-	public void windowOpened (WindowEvent e){
-		
-
-		
-		
-	}
-	
-	public void windowActivated (WindowEvent e){
-		
-		System.out.println("ventana Abierta");
-		
-		Envio envio = new Envio();
-		
-		envio.usuarioOnline(user);
-		
-
-	}
 	
 	public void windowClosing(WindowEvent e){
 		
-		System.out.println("ventana Cerrada");
+		/*System.out.println("ventana Cerrada");
 		
 		getUser().setOnline(false);
 		
 		System.out.println(user.toString());
 		
-		Envio envio = new Envio();
+		EnvioMensajeCliente envio = new EnvioMensajeCliente();
 		
-		envio.usuarioOnline(user);
+		envio.usuarioOnlineClienteServidor(user);*/
 		
 	}
 
