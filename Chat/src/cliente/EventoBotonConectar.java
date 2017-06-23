@@ -1,13 +1,10 @@
 package cliente;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
-import javax.swing.JOptionPane;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import javax.swing.*;
 
 import dominio.Usuario;
 
@@ -34,6 +31,9 @@ public class EventoBotonConectar implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		
+		EnvioMensajeCliente envioMensajeCliente = new EnvioMensajeCliente();
+		
+
 
 		if (cliente.getBotonOnline().getText().equalsIgnoreCase("Conectar")){
 			
@@ -41,7 +41,7 @@ public class EventoBotonConectar implements ActionListener{
 			
 			try {
 				
-				envioNotificacionOnline();
+				envioMensajeCliente.usuarioOnlineClienteServidor(getUsuario());
 				
 				getCliente().getBotonOnline().setText("Desconectar");
 				
@@ -69,7 +69,7 @@ public class EventoBotonConectar implements ActionListener{
 			
 			try {
 				
-				envioNotificacionOnline();
+				envioMensajeCliente.usuarioOnlineClienteServidor(getUsuario());
 				
 				getCliente().getBotonOnline().setText("Conectar");
 				
@@ -91,46 +91,7 @@ public class EventoBotonConectar implements ActionListener{
 	}
 	
 	
-	public void envioNotificacionOnline () throws UnknownHostException, IOException{
 		
-			
-			Socket socketEnvioUsuarioOnline = new Socket ("192.168.1.99",8888);
-			
-			ObjectOutputStream envioOnline = new ObjectOutputStream (socketEnvioUsuarioOnline.getOutputStream());
-			
-			envioOnline.writeObject(getUsuario());
-			
-			envioOnline.close();
-			
-			socketEnvioUsuarioOnline.close();
-			
-			
-		} /*catch (UnknownHostException e1) {
-			
-			
-			e1.printStackTrace();
-			
-		} catch (IOException e1) {
-			
-			System.out.println("Error enviando usuario Online!!!!!");
-			
-			JOptionPane.showMessageDialog(cliente.getLamina(), "Servidor no disponible");
-			
-			getUsuario().setOnline(false);
-			
-			e1.printStackTrace();
-		}
-		
-		}else{
-			
-	
-			getCliente().getBotonOnline().setText("Conectar");
-			
-			
-		}*/
-		
-	
-
 
 	public UICliente getCliente() {
 		return cliente;

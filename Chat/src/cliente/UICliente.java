@@ -18,7 +18,7 @@ public class UICliente implements Serializable{
 	private JComboBox<String> usuariosDisponibles;
 	private JButton botonEnvio,botonOnline;
 	private JTextArea campoChat;
-	private ArrayList <Usuario> usuariosConectados;
+	//private ArrayList <Usuario> usuariosConectados;
 	private JPanel lamina;
 
 	

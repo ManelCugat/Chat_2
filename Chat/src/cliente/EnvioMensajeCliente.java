@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import dominio.PaqueteMensaje;
 import dominio.Usuario;
@@ -56,39 +55,20 @@ public class EnvioMensajeCliente {
 	
 	//Envio del usuario Online del Cliente al Servidor
 	
-	public void usuarioOnlineClienteServidor(Usuario u){
+	public void usuarioOnlineClienteServidor(Usuario u) throws UnknownHostException, IOException{
 		
-	
-		try {
 			
-			Socket socket = new Socket ("192.168.1.99",8888);
+			Socket socketEnvioUsuarioOnline = new Socket ("192.168.1.99",8888);
 			
-			System.out.println("Se abre socket usuario online");
+			ObjectOutputStream envioOnline = new ObjectOutputStream (socketEnvioUsuarioOnline.getOutputStream());
 			
-			ObjectOutputStream usuarioOnlineServidor = new ObjectOutputStream (socket.getOutputStream());
+			envioOnline.writeObject(u);
 			
-			System.out.println("Se envia usuario: " + u.toString());
+			envioOnline.close();
 			
-			usuarioOnlineServidor.writeObject(u);
+			socketEnvioUsuarioOnline.close();
 			
-			usuarioOnlineServidor.close();
-			
-			socket.close();
-			
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 	}
 		
-
-		
-
-	
-	
-
 }
