@@ -1,31 +1,37 @@
-package uinterface;
+package cliente;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.*;
-import dominio.*;
-import eventos.EventoUICliente;
-import eventos.EventoBotonEnvio;
 
-public class UICliente {
+import dominio.*;
+
+public class UICliente implements Serializable{
 	
 
+	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private JTextField textoEnvio, nick;
 	private JComboBox<String> usuariosDisponibles;
-	private JButton botonEnvio;
+	private JButton botonEnvio,botonOnline;
 	private JTextArea campoChat;
 	private ArrayList <Usuario> usuariosConectados;
+	private JPanel lamina;
 
 	
 	
 	public UICliente(){
 		
+		
+		usuario=new Usuario(this);
+		
 		MarcoCliente marcoCliente=new MarcoCliente();
-		
+	
 		marcoCliente.addWindowListener(new EventoUICliente(usuario));
-		
+	
 		marcoCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
@@ -37,7 +43,7 @@ public class UICliente {
 
 		public MarcoCliente(){
 			
-			this.setBounds(300, 300, 400, 450);
+			this.setBounds(300, 300, 400, 500);
 			
 			this.setTitle("Cliente v.1");
 			
@@ -57,13 +63,17 @@ public class UICliente {
 
 		public LaminaCliente(){
 			
-			usuario=new Usuario();
-		
+			setLamina(this);
+			
 			usuario.setNick_name(JOptionPane.showInputDialog("Por favor, Introduce tu nickname"));
+			
+			botonOnline=new JButton("Conectar");
 			
 			nick=new JTextField(8);
 			
 			usuariosDisponibles = new JComboBox<String>();
+			
+			usuariosDisponibles.addItem("No hay Usuarios Online");
 		
 			textoEnvio =new JTextField (30);
 		
@@ -77,6 +87,8 @@ public class UICliente {
 			
 			nick.setEnabled(false);
 			
+			this.add(botonOnline);
+			
 			this.add(nick);
 			
 			this.add(usuariosDisponibles);
@@ -87,22 +99,30 @@ public class UICliente {
 			
 			this.add(botonEnvio);
 			
-			addComboBoxUsuariosOnline ();
+			botonOnline.addActionListener(new EventoBotonConectar (UICliente.this, getUsuario()));
 			
 			botonEnvio.addActionListener(new EventoBotonEnvio (UICliente.this, getUsuario()));
-		
+	
 		}
+		
 	
 	}
 	
-	public void addComboBoxUsuariosOnline (/*ArrayList <Usuario> u*/){
+	public void addComboBoxUsuariosOnline (ArrayList <Usuario> u){
 		
-		if (usuariosDisponibles.getItemCount()<1){
+
+			Iterator <Usuario> it = u.iterator();
 			
-			usuariosDisponibles.addItem("No hay usuarios Online");
-		}
+			Usuario user;
 
 		
+			while (it.hasNext()){
+				
+				user=it.next();
+				
+				usuariosDisponibles.addItem(user.getNick_name());
+				
+			}
 		
 	}
 
@@ -136,6 +156,26 @@ public class UICliente {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public JButton getBotonOnline() {
+		return botonOnline;
+	}
+	
+	public void setBotonOnline(JButton botonOnline) {
+		this.botonOnline = botonOnline;
+	}
+
+
+
+	public JPanel getLamina() {
+		return lamina;
+	}
+
+
+
+	public void setLamina(JPanel lamina) {
+		this.lamina = lamina;
 	}
 
 

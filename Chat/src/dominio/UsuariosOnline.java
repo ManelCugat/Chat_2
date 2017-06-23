@@ -1,8 +1,14 @@
 package dominio;
 
+
+import java.io.Serializable;
 import java.util.*;
 
-public class UsuariosOnline {
+import servidor.EnvioMensajeServidor;
+
+public class UsuariosOnline implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private ArrayList <Usuario> usuariosOnline = new ArrayList <Usuario>();
 	
@@ -16,19 +22,17 @@ public class UsuariosOnline {
 		
 		System.out.println("valorando el usuario: " + u.toString());
 		
-		if (usuariosOnline.isEmpty()){
+		if (usuariosOnline.isEmpty() && u.isOnline()){
 			
 			usuariosOnline.add(u);
-			u.setOnline(true);
 			modificacion=true;
 			
-		} else if (!estaEnArray(u)){
+		} else if (!estaEnArray(u) && u.isOnline()){
 
 			usuariosOnline.add(u);
-			u.setOnline(true);
 			modificacion=true;
 			
-		} else if (u.isOnline()==false){
+		} else if (estaEnArray(u) && !u.isOnline()){
 			
 			usuariosOnline.remove(posicionElementoQuitar(u));
 			modificacion=true;
@@ -43,16 +47,24 @@ public class UsuariosOnline {
 			
 		}
 		
+		//Si hay modificación del array de usuarios Online se envían los usurios online al cliente
+		
 		if (modificacion){
 			
-			/*Desarrollar en caso de que haya modificacion, crear método de
-			 * para cargar el combobox*/
+			EnvioMensajeServidor envioServidor = new EnvioMensajeServidor();
+			
+			PaqueteUsuariosOnline paqueteUsuariosOnline = new PaqueteUsuariosOnline (this.getArrayListUsuariosOnline(),u.getIp());
+			
+			System.out.println("Se produce una modificación en lista de usuarios Online!!!");
+			
+			System.out.println("Se crea el paquete de usuarios Online!!!");
+		
+			envioServidor.usuarioOnlineServidorCliente(paqueteUsuariosOnline);
 			
 		}
 		
 		
 	}
-	
 	
 	public boolean estaEnArray (Usuario u){
 		
@@ -102,6 +114,20 @@ public class UsuariosOnline {
 		
 		return posicion;
 
+	}
+	
+	public ArrayList <Usuario> getArrayListUsuariosOnline (){
+		
+		return usuariosOnline;
+		
+	}
+	
+	public String toString (){
+		
+		
+		return getArrayListUsuariosOnline().toString();
+		
+		
 	}
 	
 

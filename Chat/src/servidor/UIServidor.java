@@ -1,4 +1,4 @@
-package uinterface;
+package servidor;
 
 import javax.swing.*;
 

@@ -1,19 +1,17 @@
-package uinterface;
-
-
-
-import dominio.EscuchaServidorMensaje;
-
+package servidor;
 
 public class Servidor {
 	
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-
-		EscuchaServidorMensaje s = new EscuchaServidorMensaje();
 		
+		UIServidor servidor = new UIServidor();
 	
+		EscuchaServidorUsuariosOnline s = new EscuchaServidorUsuariosOnline(servidor);
+		
+		EscuchaServidorMensaje m = new EscuchaServidorMensaje (servidor);
+		
 	}
 	
 }

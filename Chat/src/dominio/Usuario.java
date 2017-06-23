@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import cliente.UICliente;
+
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -11,8 +13,9 @@ public class Usuario implements Serializable{
 	private String nick_name;
 	private boolean isOnline;
 	private InetAddress ip;
+	private UICliente cliente;
 
-	public Usuario () {
+	public Usuario (UICliente cliente) {
 		
 		try {
 			setIp(InetAddress.getLocalHost());
@@ -21,6 +24,7 @@ public class Usuario implements Serializable{
 			e.printStackTrace();
 		}
 		
+		this.cliente=cliente;
 		this.setOnline(false);
 
 	}
@@ -40,6 +44,7 @@ public class Usuario implements Serializable{
 	public void setOnline(boolean isOnline) {
 		this.isOnline = isOnline;
 	}
+	
 
 	public InetAddress getIp() {
 		return ip;
@@ -55,6 +60,16 @@ public class Usuario implements Serializable{
 		return "Nick_Name = " + getNick_name() + " InetAddress= " + ip.getHostAddress() + " Online: " +isOnline;
 		
 	}
+
+	public UICliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(UICliente cliente) {
+		this.cliente = cliente;
+	}
+
+
 	
 
 }
