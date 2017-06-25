@@ -25,7 +25,7 @@ public class EnvioMensajeCliente {
 		
 		try {
 			
-			socket =new Socket ("192.168.1.99",9999);
+			socket =new Socket ("192.168.1.100",9999);
 			
 			ObjectOutputStream envio = new ObjectOutputStream (socket.getOutputStream());
 			
@@ -58,7 +58,7 @@ public class EnvioMensajeCliente {
 	public void usuarioOnlineClienteServidor(Usuario u) throws UnknownHostException, IOException{
 		
 			
-			Socket socketEnvioUsuarioOnline = new Socket ("192.168.1.99",8888);
+			Socket socketEnvioUsuarioOnline = new Socket ("192.168.1.100",8888);
 			
 			ObjectOutputStream envioOnline = new ObjectOutputStream (socketEnvioUsuarioOnline.getOutputStream());
 			

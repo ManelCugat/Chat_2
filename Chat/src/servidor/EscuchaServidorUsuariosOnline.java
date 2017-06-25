@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import dominio.Usuario;
-import dominio.UsuariosOnline;
+import dominio.GestionUsuariosOnline;
 
 public class EscuchaServidorUsuariosOnline implements Runnable{
 	
@@ -30,7 +30,7 @@ public class EscuchaServidorUsuariosOnline implements Runnable{
 			ServerSocket socketServidorUsuariosOnline=null;
 			Socket socketUsuariosOnline;
 			Usuario usuarioOnline;
-			UsuariosOnline arrayUsuariosOnline = new UsuariosOnline();
+			GestionUsuariosOnline usuariosOnline = new GestionUsuariosOnline();
 
 	
 			try {
@@ -58,9 +58,7 @@ public class EscuchaServidorUsuariosOnline implements Runnable{
 					
 					usuarioOnline.setIp(socketUsuariosOnline.getInetAddress());
 					
-					servidor.getAreaTexto().append("Usuario online recibido: " + usuarioOnline.toString() + "\n");
-					
-					arrayUsuariosOnline.addUsuarioOnline(usuarioOnline);
+					usuariosOnline.addUsuarioOnline(usuarioOnline);
 					
 			
 				} catch (IOException e) {

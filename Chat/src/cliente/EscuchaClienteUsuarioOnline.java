@@ -29,7 +29,7 @@ public class EscuchaClienteUsuarioOnline implements Runnable{
 		
 		ServerSocket serverCliente=null;
 		Socket socketCliente=null;
-		PaqueteUsuariosOnline paqueteUsuariosOnline;
+		PaqueteUsuariosOnline p;
 		ArrayList <Usuario> listaUsuarios;
 
 		try {
@@ -48,19 +48,11 @@ public class EscuchaClienteUsuarioOnline implements Runnable{
 				
 				ObjectInputStream listaUsuariosRecibida = new ObjectInputStream (socketCliente.getInputStream());
 			
-				paqueteUsuariosOnline = (PaqueteUsuariosOnline) listaUsuariosRecibida.readObject();
+				p = (PaqueteUsuariosOnline) listaUsuariosRecibida.readObject();
 				
 				listaUsuariosRecibida.close();
 				
 				socketCliente.close();
-				
-				cliente.getCampoChat().append("Recibe el cliente: "+ paqueteUsuariosOnline.getIpCliente());
-				//listaUsuarios = paqueteUsuariosOnline.getUsuariosOnline().getArrayListUsuariosOnline();
-				
-				//cliente = paqueteUsuariosOnline.getUsuario().getCliente();
-				
-				//cliente.addComboBoxUsuariosOnline(listaUsuarios);
-				
 			
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

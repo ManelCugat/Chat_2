@@ -1,36 +1,39 @@
 package servidor;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.net.*;
 
 import dominio.PaqueteUsuariosOnline;
+import dominio.Usuario;
+import dominio.UsuarioServCliente;
 
-public class EnvioMensajeServidor {
+public class EnvioMensajeServidor implements Serializable{
 	
 	
 	//Envio del los usuarios Online del Servidor al Cliente
 	
-	public void usuarioOnlineServidorCliente (PaqueteUsuariosOnline paqueteUsuariosOnline){
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void usuarioOnlineServidorCliente (PaqueteUsuariosOnline p){
 		
 		try {
 			
-			Socket socket = new Socket (paqueteUsuariosOnline.getIpCliente(),8888);
+			Socket socket = new Socket (p.getIp(),8888);
 			
-			System.out.println("Se envía a la ip: " + paqueteUsuariosOnline.getIpCliente());
+			System.out.println("************Actualización de Usuarios enviados*********");
 			
+			System.out.println(p.toString());
+		
 			ObjectOutputStream usuarioOnlineCliente = new ObjectOutputStream (socket.getOutputStream());
-			
-			System.out.print(paqueteUsuariosOnline.toString());
-			
-			usuarioOnlineCliente.writeObject(paqueteUsuariosOnline);
+	
+			usuarioOnlineCliente.writeObject(p);
 
 			usuarioOnlineCliente.close();
 			
 			socket.close();
-			
-			System.out.println("UsuarioOnline enviado del Servidor al cliente!");
 			
 		}catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
