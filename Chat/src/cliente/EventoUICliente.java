@@ -24,15 +24,27 @@ public class EventoUICliente extends WindowAdapter{
 	
 	public void windowClosing(WindowEvent e){
 		
-		/*System.out.println("ventana Cerrada");
+		if (getUser().isOnline()){
 		
-		getUser().setOnline(false);
+			getUser().setOnline(false);
 		
-		System.out.println(user.toString());
+			System.out.println(user.toString());
 		
-		EnvioMensajeCliente envio = new EnvioMensajeCliente();
+			EnvioMensajeCliente envio = new EnvioMensajeCliente();
 		
-		envio.usuarioOnlineClienteServidor(user);*/
+			getUser().setOnline(false);
+		
+			try {
+				envio.usuarioOnlineClienteServidor(getUser());
+			} catch (UnknownHostException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+		}
 		
 	}
 

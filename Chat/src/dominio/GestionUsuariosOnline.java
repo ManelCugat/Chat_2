@@ -1,19 +1,22 @@
 package dominio;
 
 
-import java.io.Serializable;
+
+import java.net.InetAddress;
 import java.util.*;
 
 import servidor.EnvioMensajeServidor;
 
-public class UsuariosOnline implements Serializable{
+public class GestionUsuariosOnline {
 	
-	private static final long serialVersionUID = 1L;
+
 	
-	private ArrayList <Usuario> usuariosOnline = new ArrayList <Usuario>();
+	private ArrayList <Usuario> usuariosOnlineServidor = new ArrayList <Usuario>();
+	
+	private ArrayList <UsuarioOnline> usuariosOnlineCliente = new ArrayList <UsuarioOnline>();
 	
 	
-	public UsuariosOnline (){}
+	public GestionUsuariosOnline (){}
 	
 	
 	public void addUsuarioOnline (Usuario u){
@@ -22,26 +25,26 @@ public class UsuariosOnline implements Serializable{
 		
 		System.out.println("valorando el usuario: " + u.toString());
 		
-		if (usuariosOnline.isEmpty() && u.isOnline()){
+		if (usuariosOnlineServidor.isEmpty() && u.isOnline()){
 			
-			usuariosOnline.add(u);
+			usuariosOnlineServidor.add(u);
 			modificacion=true;
 			
 		} else if (!estaEnArray(u) && u.isOnline()){
 
-			usuariosOnline.add(u);
+			usuariosOnlineServidor.add(u);
 			modificacion=true;
 			
 		} else if (estaEnArray(u) && !u.isOnline()){
 			
-			usuariosOnline.remove(posicionElementoQuitar(u));
+			usuariosOnlineServidor.remove(posicionElementoQuitar(u));
 			modificacion=true;
 			
 		}
 		
 		System.out.println ("**** USUARIOS ONLINE ****");
 	
-		for (Usuario user:usuariosOnline){
+		for (Usuario user:usuariosOnlineServidor){
 			
 			System.out.println(user);
 			
@@ -51,25 +54,58 @@ public class UsuariosOnline implements Serializable{
 		
 		if (modificacion){
 			
-			EnvioMensajeServidor envioServidor = new EnvioMensajeServidor();
-			
-			PaqueteUsuariosOnline paqueteUsuariosOnline = new PaqueteUsuariosOnline (this.getArrayListUsuariosOnline(),u.getIp());
-			
-			System.out.println("Se produce una modificación en lista de usuarios Online!!!");
-			
-			System.out.println("Se crea el paquete de usuarios Online!!!");
-		
-			envioServidor.usuarioOnlineServidorCliente(paqueteUsuariosOnline);
+			gestionActualizacionUsuariosOnlineServidor ();
 			
 		}
 		
 		
 	}
+
+	
+	public void gestionActualizacionUsuariosOnlineServidor (){
+		
+		EnvioMensajeServidor envioServidor = new EnvioMensajeServidor();
+		
+		Iterator <Usuario> it = getArrayListUsuariosOnlineServidor().iterator();
+		
+		InetAddress ip;
+		
+		Usuario usuario;
+		
+		while (it.hasNext()){
+			
+			usuario = it.next();
+			
+			ip = usuario.getIp();
+			
+			for (Usuario u : getArrayListUsuariosOnlineServidor()){
+				
+					if (!u.getIp().equals(ip)){
+						
+					UsuarioOnline onlineUser = new UsuarioOnline(u.getNick_name(),u.getIp());
+					
+					getUsuariosOnlineCliente().add(onlineUser);
+					
+
+			
+					}
+			}
+			
+			PaqueteUsuariosOnline paqueteUsuariosOnline = new PaqueteUsuariosOnline(getUsuariosOnlineCliente(), ip);
+			
+			envioServidor.usuarioOnlineServidorCliente(paqueteUsuariosOnline);
+			
+			getUsuariosOnlineCliente().removeAll(getUsuariosOnlineCliente());
+		
+		}
+	
+	}
+	
 	
 	public boolean estaEnArray (Usuario u){
 		
 		
-		Iterator <Usuario>it = usuariosOnline.iterator();
+		Iterator <Usuario>it = usuariosOnlineServidor.iterator();
 		Usuario usuario;
 		boolean contieneUsuario=false;
 		
@@ -93,7 +129,7 @@ public class UsuariosOnline implements Serializable{
 	
 	public int posicionElementoQuitar (Usuario u){
 		
-		ListIterator <Usuario>it = usuariosOnline.listIterator();
+		ListIterator <Usuario>it = usuariosOnlineServidor.listIterator();
 		Usuario usuario;
 		int i=0;
 		int posicion=0;
@@ -116,18 +152,28 @@ public class UsuariosOnline implements Serializable{
 
 	}
 	
-	public ArrayList <Usuario> getArrayListUsuariosOnline (){
+	public ArrayList <Usuario> getArrayListUsuariosOnlineServidor (){
 		
-		return usuariosOnline;
+		return usuariosOnlineServidor;
 		
 	}
 	
 	public String toString (){
 		
 		
-		return getArrayListUsuariosOnline().toString();
+		return getArrayListUsuariosOnlineServidor().toString();
 		
 		
+	}
+
+
+	public ArrayList <UsuarioOnline> getUsuariosOnlineCliente() {
+		return usuariosOnlineCliente;
+	}
+
+
+	public void setUsuariosOnlineCliente(ArrayList <UsuarioOnline> usuariosOnlineCliente) {
+		this.usuariosOnlineCliente = usuariosOnlineCliente;
 	}
 	
 

@@ -37,7 +37,7 @@ public class UICliente implements Serializable{
 	}
 	
 	
-	private class MarcoCliente extends JFrame{
+	private class MarcoCliente extends JFrame implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,7 @@ public class UICliente implements Serializable{
 		
 	}
 
-	private class LaminaCliente extends JPanel{
+	private class LaminaCliente extends JPanel implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 
@@ -79,9 +79,13 @@ public class UICliente implements Serializable{
 		
 			campoChat=new JTextArea (20,30);
 			
+			campoChat.setEnabled(false);
+			
 			JScrollPane scroll = new JScrollPane(campoChat);
 
 			botonEnvio=new JButton("Enviar");
+			
+			botonEnvio.setEnabled(false);
 		
 			nick.setText(usuario.getNick_name());
 			
@@ -164,6 +168,15 @@ public class UICliente implements Serializable{
 	
 	public void setBotonOnline(JButton botonOnline) {
 		this.botonOnline = botonOnline;
+	}
+	
+	
+	public JButton getBotonEnvio() {
+		return botonEnvio;
+	}
+	
+	public void setBotonEnvio(JButton botonEnvio) {
+		this.botonEnvio = botonEnvio;
 	}
 
 

@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 
 import cliente.UICliente;
 
-public class Usuario implements Serializable{
+public class UsuarioServCliente implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -14,8 +14,8 @@ public class Usuario implements Serializable{
 	private boolean isOnline;
 	private InetAddress ip;
 	private UICliente cliente;
-	
-	public Usuario (UICliente cliente) {
+
+	public UsuarioServCliente () {
 		
 		try {
 			setIp(InetAddress.getLocalHost());
@@ -24,7 +24,6 @@ public class Usuario implements Serializable{
 			e.printStackTrace();
 		}
 		
-		this.cliente=cliente;
 		this.setOnline(false);
 
 	}
@@ -67,31 +66,6 @@ public class Usuario implements Serializable{
 
 	public void setCliente(UICliente cliente) {
 		this.cliente = cliente;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nick_name == null) ? 0 : nick_name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (nick_name == null) {
-			if (other.nick_name != null)
-				return false;
-		} else if (!nick_name.equals(other.nick_name))
-			return false;
-		return true;
 	}
 
 

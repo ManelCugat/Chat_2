@@ -9,42 +9,42 @@ public class PaqueteUsuariosOnline implements Serializable {
 
 	private static final long serialVersionUID = 5710264500453408646L;
 	
-	//private ArrayList <Usuario> listadoUsuariosOnline;
-	private InetAddress ipCliente;
+	private ArrayList <UsuarioOnline> listadoUsuariosOnline;
+	private InetAddress ip;
 
 	
-	public PaqueteUsuariosOnline(ArrayList <Usuario> listadoUsuariosOnline, InetAddress ipCliente){
+	public PaqueteUsuariosOnline(ArrayList <UsuarioOnline> listadoUsuariosOnline, InetAddress ipCliente){
 		
-		//this.setListadoUsuariosOnline(listadoUsuariosOnline);
-		this.setIpCliente(ipCliente);
+		this.setListadoUsuariosOnline(listadoUsuariosOnline);
+		this.setIp(ipCliente);
 	
 	}
 
 
-	/*public ArrayList <Usuario> getListadoUsuariosOnline() {
+
+	public ArrayList <UsuarioOnline> getListadoUsuariosOnline() {
 		return listadoUsuariosOnline;
 	}
 
 
-	public void setListadoUsuariosOnline(ArrayList <Usuario> listadoUsuariosOnline) {
+	public void setListadoUsuariosOnline(ArrayList <UsuarioOnline> listadoUsuariosOnline) {
 		this.listadoUsuariosOnline = listadoUsuariosOnline;
-	}*/
-
-
-
-	public InetAddress getIpCliente() {
-		return ipCliente;
 	}
 
 
-	public void setIpCliente(InetAddress ipCliente) {
-		this.ipCliente = ipCliente;
+	public InetAddress getIp() {
+		return ip;
 	}
-	
-	
+
+
+	public void setIp(InetAddress ip) {
+		this.ip = ip;
+	}
+
 	public String toString(){
 		
-		return "La ip destino del paquete es: " + getIpCliente() + " la lista de Usuarios: \n";
+		return "La ip destino del paquete es: " + getIp() + " la lista de Usuarios: \n" +
+				getListadoUsuariosOnline().toString();
 	}
 
 
