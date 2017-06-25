@@ -3,15 +3,20 @@ package cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import dominio.PaqueteMensaje;
 import dominio.Usuario;
+import dominio.UsuarioOnline;
 
 public class EventoBotonEnvio implements ActionListener{
 
 	
 	private UICliente cliente;
 	private Usuario user;
+	private InetAddress ipDestino;
 	
 	
 	public EventoBotonEnvio (UICliente cliente, Usuario user){
@@ -32,8 +37,8 @@ public class EventoBotonEnvio implements ActionListener{
 		PaqueteMensaje mensaje = new PaqueteMensaje();
 		
 		mensaje.setMensaje(cliente.getTextoEnvio().getText());
-		mensaje.setUsuario(getUser());
-		mensaje.setIpDestino(cliente.getUsuario().getIp());
+		mensaje.setNickName(user.getNick_name());
+		mensaje.setIpDestino(ipClienteDestino(cliente.getUsuariosOnline()));
 		
 		cliente.getCampoChat().append(getUser().getNick_name() +": " +cliente.getTextoEnvio().getText() + "\n");
 		
@@ -46,6 +51,31 @@ public class EventoBotonEnvio implements ActionListener{
 		
 
 	
+	}
+	
+	
+	public InetAddress ipClienteDestino (ArrayList <UsuarioOnline> uo){
+		
+		InetAddress ipDestino=null;
+		
+		String nickName = (String) getCliente().getUsuariosDisponibles().getSelectedItem();
+		
+		Iterator <UsuarioOnline> it = uo.iterator();
+		
+		while (it.hasNext()){
+			
+			UsuarioOnline usuario = it.next();
+			
+			if (usuario.getNickName().equalsIgnoreCase(nickName)){
+				
+				ipDestino = usuario.getIp();
+				
+			}
+			
+		}
+	
+		return ipDestino;
+		
 	}
 
 

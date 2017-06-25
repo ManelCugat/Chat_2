@@ -53,7 +53,9 @@ public class EscuchaClienteUsuarioOnline implements Runnable{
 				listaUsuariosRecibida.close();
 				
 				socketCliente.close();
-			
+		
+				getCliente().addComboBoxUsuariosOnline(p.getListadoUsuariosOnline());
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

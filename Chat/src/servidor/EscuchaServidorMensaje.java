@@ -61,7 +61,26 @@ public class EscuchaServidorMensaje implements Runnable{
 					
 					servidor.getAreaTexto().append(mensaje.toString() + "\n");
 					
-			
+					System.out.println("El destinatario del mensaje es: " + mensaje.getIpDestino());
+					
+					recepcion.close();
+					
+					socket.close();
+					
+					if (mensaje.getIpDestino()!=null){
+					
+					EnvioMensajeServidor mensajeCliente = new EnvioMensajeServidor();
+					
+					mensajeCliente.mensajeServidorCliente(mensaje, mensaje.getIpDestino());
+					
+					}
+					
+					else {
+						
+						System.out.println("No hay usuarios Conectados");
+						
+					}
+				
 				} catch (IOException e) {
 			
 					System.out.println("----ERROR: Socket Servidor----");

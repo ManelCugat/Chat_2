@@ -58,9 +58,7 @@ public class EventoBotonConectar implements ActionListener{
 				getUsuario().setOnline(false);
 				
 				JOptionPane.showMessageDialog(cliente.getLamina(), "Servidor no disponible");
-				
-				cliente.getCampoChat().append(e1.toString());
-
+			
 				e1.printStackTrace();
 			}
 			
@@ -77,7 +75,12 @@ public class EventoBotonConectar implements ActionListener{
 				
 				getCliente().getBotonOnline().setText("Conectar");
 				
+				getCliente().getUsuariosDisponibles().removeAllItems();
+				
+				getCliente().getUsuariosDisponibles().addItem("No hay Usuarios Online");
+				
 				getCliente().getBotonEnvio().setEnabled(false);
+				
 				
 			} catch (UnknownHostException e1) {
 	

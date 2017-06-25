@@ -7,19 +7,21 @@ public class PaqueteMensaje implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Usuario usuario;
+	//private Usuario usuario;
+	
+	private String nickName;
 	private String mensaje;
 	private InetAddress ipDestino;
 	
 	
-	public Usuario getUsuario() {
+	/*public Usuario getUsuario() {
 		return usuario;
 	}
 
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
+	}*/
 
 
 	public String getMensaje() {
@@ -44,9 +46,19 @@ public class PaqueteMensaje implements Serializable{
 	
 	public String toString(){
 		
-		return " De: " + getUsuario().getNick_name() + " Mensaje enviado: " + getMensaje() + 
+		return " De: " + getNickName() + " Mensaje enviado: " + getMensaje() + 
 				" Para: " + getIpDestino();
 		
+	}
+
+
+	public String getNickName() {
+		return nickName;
+	}
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 

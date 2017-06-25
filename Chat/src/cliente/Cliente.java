@@ -8,7 +8,9 @@ public class Cliente {
 		
 		@SuppressWarnings("unused")
 		EscuchaClienteUsuarioOnline escuchaClienteUsuarioOnline = new EscuchaClienteUsuarioOnline(cliente);
-	
+		
+		@SuppressWarnings("unused")
+		EscuchaClienteMensaje escuchaClienteMensaje = new EscuchaClienteMensaje (cliente);
 	
 	}
 

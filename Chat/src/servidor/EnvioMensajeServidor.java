@@ -3,6 +3,7 @@ package servidor;
 import java.io.*;
 import java.net.*;
 
+import dominio.PaqueteMensaje;
 import dominio.PaqueteUsuariosOnline;
 import dominio.Usuario;
 import dominio.UsuarioServCliente;
@@ -42,6 +43,38 @@ public class EnvioMensajeServidor implements Serializable{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
+	}
+	
+	
+	public void mensajeServidorCliente (PaqueteMensaje m, InetAddress ip){
+		
+		
+		try {
+			
+			Socket socket = new Socket (ip,9999);
+			
+			ObjectOutputStream mensajeServidorCliente = new ObjectOutputStream (socket.getOutputStream()); 
+			
+			mensajeServidorCliente.writeObject(m);
+			
+			mensajeServidorCliente.close();
+			
+			socket.close();
+			
+		}catch (UnknownHostException e1){
+			e1.printStackTrace();
+			
+		}catch (IOException e1){
+			e1.printStackTrace();
+			
+		}
+		
+		
+		
+		
+		
 		
 		
 	}

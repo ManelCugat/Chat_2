@@ -13,18 +13,17 @@ public class Usuario implements Serializable{
 	private String nick_name;
 	private boolean isOnline;
 	private InetAddress ip;
-	private UICliente cliente;
 	
-	public Usuario (UICliente cliente) {
+	public Usuario () {
 		
 		try {
 			setIp(InetAddress.getLocalHost());
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
-		this.cliente=cliente;
+
 		this.setOnline(false);
 
 	}
@@ -61,13 +60,7 @@ public class Usuario implements Serializable{
 		
 	}
 
-	public UICliente getCliente() {
-		return cliente;
-	}
 
-	public void setCliente(UICliente cliente) {
-		this.cliente = cliente;
-	}
 	
 	@Override
 	public int hashCode() {

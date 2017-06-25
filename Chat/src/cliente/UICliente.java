@@ -9,24 +9,22 @@ import javax.swing.*;
 
 import dominio.*;
 
-public class UICliente implements Serializable{
+public class UICliente{
 	
-
-	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private JTextField textoEnvio, nick;
 	private JComboBox<String> usuariosDisponibles;
 	private JButton botonEnvio,botonOnline;
 	private JTextArea campoChat;
-	//private ArrayList <Usuario> usuariosConectados;
 	private JPanel lamina;
+	private ArrayList <UsuarioOnline> usuariosOnline;
 
 	
 	
 	public UICliente(){
 		
 		
-		usuario=new Usuario(this);
+		usuario=new Usuario(/*this*/);
 		
 		MarcoCliente marcoCliente=new MarcoCliente();
 	
@@ -45,7 +43,7 @@ public class UICliente implements Serializable{
 			
 			this.setBounds(300, 300, 400, 500);
 			
-			this.setTitle("Cliente v.1");
+			this.setTitle("Cliente v.0.1");
 			
 			LaminaCliente laminaCliente=new LaminaCliente();
 			
@@ -112,19 +110,33 @@ public class UICliente implements Serializable{
 	
 	}
 	
-	public void addComboBoxUsuariosOnline (ArrayList <Usuario> u){
+	public void addComboBoxUsuariosOnline (ArrayList <UsuarioOnline> u){
 		
 
-			Iterator <Usuario> it = u.iterator();
+			Iterator <UsuarioOnline> it = u.iterator();
 			
-			Usuario user;
+			UsuarioOnline user;
+			
+			usuariosDisponibles.removeAllItems();
+			
+			setUsuariosOnline(u);
+			
+			if (u.isEmpty()){
+				
+				usuariosDisponibles.addItem("No hay Usuarios Online");
+				
+				getBotonEnvio().setEnabled(false);
+				
+			}else{
+				
+				getBotonEnvio().setEnabled(true);
 
-		
-			while (it.hasNext()){
+				while (it.hasNext()){
 				
-				user=it.next();
+					user=it.next();
 				
-				usuariosDisponibles.addItem(user.getNick_name());
+					usuariosDisponibles.addItem(user.getNickName());
+				}
 				
 			}
 		
@@ -189,6 +201,26 @@ public class UICliente implements Serializable{
 
 	public void setLamina(JPanel lamina) {
 		this.lamina = lamina;
+	}
+	
+	public JComboBox<String> getUsuariosDisponibles() {
+		return usuariosDisponibles;
+	}
+
+	public void setUsuariosDisponibles(JComboBox<String> usuariosDisponibles) {
+		this.usuariosDisponibles = usuariosDisponibles;
+	}
+
+
+
+	public ArrayList <UsuarioOnline> getUsuariosOnline() {
+		return usuariosOnline;
+	}
+
+
+
+	public void setUsuariosOnline(ArrayList <UsuarioOnline> usuariosOnline) {
+		this.usuariosOnline = usuariosOnline;
 	}
 
 
