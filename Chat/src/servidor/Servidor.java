@@ -1,5 +1,7 @@
 package servidor;
 
+/* versión v0.1*/
+
 public class Servidor {
 	
 
