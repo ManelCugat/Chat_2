@@ -32,8 +32,7 @@ public class EventoBotonConectar implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		EnvioMensajeCliente envioMensajeCliente = new EnvioMensajeCliente();
-		
-
+	
 
 		if (cliente.getBotonOnline().getText().equalsIgnoreCase("Conectar")){
 			

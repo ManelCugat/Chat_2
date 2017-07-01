@@ -20,7 +20,6 @@ public class UsuarioServCliente implements Serializable{
 		try {
 			setIp(InetAddress.getLocalHost());
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
